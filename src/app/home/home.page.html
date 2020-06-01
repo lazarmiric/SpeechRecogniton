@@ -1,20 +1,35 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<ion-header >
+  <ion-toolbar [color]="isRecording ? 'medium' : 'dark'">
     <ion-title>
-      Blank
+     Glasovne komande
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<ion-content padding>
+  <div>
+    <ion-button expand="block" color="medium"   (click)="getPermissions()"> Dozvola za mikrofon</ion-button>
   </div>
+  <div>
+    <ion-button expand="block"  color="danger" [color]="getPermissions ? 'success' : 'danger'" (click)="startListen()">Zapocni govor</ion-button>
+  </div>
+   <div>
+      <ion-button expand="block" color="success"   (click)="osluskuj()"> Obradi </ion-button>
+
+      </div>
+
+  <div>
+    <ion-button expand="block"  color="danger" (click)="stopListening()" *ngIf="isIos()"> Stop </ion-button>
+  </div>
+
+  <ion-card>
+    <ion-card-header> Rekli ste:</ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let match of matches">
+          {{ match }}
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
